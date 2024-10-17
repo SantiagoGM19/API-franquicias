@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: api-franquisia
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}

@@ -1,4 +1,4 @@
-package com.franquicias.api.modelos;
+package com.franquicias.api.domain.modelos;
 
 import java.util.List;
 
