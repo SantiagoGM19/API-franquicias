@@ -1,0 +1,18 @@
+package com.franquicias.api.infrastructure.persistencia.sucursal;
+
+import com.franquicias.api.domain.modelos.Producto;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+
+@Data
+@Document("sucursales")
+public class SucursalEntity {
+    @Id
+    private String _id;
+    private String nombre;
+    private String codigoFranquicia;
+    private List<Producto> productos;
+}
