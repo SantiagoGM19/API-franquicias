@@ -1,5 +1,6 @@
 package com.franquicias.api.infrastructure.persistencia.sucursal;
 
+import com.franquicias.api.domain.modelos.EliminacionProductoData;
 import com.franquicias.api.domain.modelos.Producto;
 import com.franquicias.api.domain.modelos.Sucursal;
 import com.franquicias.api.domain.puertos.SucursalRepositoryPort;
@@ -70,5 +71,19 @@ public class SucursalRepositoryAdapter implements SucursalRepositoryPort {
                 .filter(productoExistente ->
                         Objects.equals(productoExistente.getCodigo(), nuevoProducto.getCodigo())
                 ).toList().isEmpty();
+    }
+
+    @Override
+    public Mono<Long> eliminarProducto(EliminacionProductoData eliminacionProductoData) {
+        Query query = new Query();
+        Update update = new Update();
+        query.addCriteria(Criteria.where("codigo").is(eliminacionProductoData.getCodigoSucursal()));
+        return reactiveMongoTemplate.findOne(query, SucursalEntity.class)
+                .flatMap(resultado -> {
+                    resultado.eliminarProducto(eliminacionProductoData.getCodigoProducto());
+                    update.set("productos", resultado.getProductos());
+                    return reactiveMongoTemplate.updateFirst(query, update, SucursalEntity.class)
+                            .map(UpdateResult::getModifiedCount);
+                });
     }
 }
