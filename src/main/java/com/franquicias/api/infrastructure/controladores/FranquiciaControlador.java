@@ -1,8 +1,10 @@
 package com.franquicias.api.infrastructure.controladores;
 
+import com.franquicias.api.application.ActualizarNombreFranquiciaUseCase;
 import com.franquicias.api.application.AgregarFranquiciaUseCase;
 import com.franquicias.api.application.ObtenerTodasLasFranquiciasUseCase;
 import com.franquicias.api.domain.excepciones.FranquiciaExistenteError;
+import com.franquicias.api.domain.modelos.ActualizacionNombreFranquiciaData;
 import com.franquicias.api.domain.modelos.Franquicia;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ public class FranquiciaControlador {
 
     private final AgregarFranquiciaUseCase agregarFranquiciaUseCase;
     private final ObtenerTodasLasFranquiciasUseCase obtenerTodasLasFranquiciasUseCase;
+    private final ActualizarNombreFranquiciaUseCase actualizarNombreFranquiciaUseCase;
 
     @PostMapping
     public Mono<ResponseEntity<Franquicia>> agregarFranquicia(@RequestBody Franquicia request){
@@ -31,6 +34,12 @@ public class FranquiciaControlador {
     @GetMapping
     public Mono<ResponseEntity<List<Franquicia>>> obtenerTodasLasFranquicias(){
         return obtenerTodasLasFranquiciasUseCase.obtenerTodasLasFranquicias()
+                .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
+    }
+
+    @PutMapping()
+    public Mono<ResponseEntity<Long>> actualizarNombreFranquicia(@RequestBody ActualizacionNombreFranquiciaData request){
+        return actualizarNombreFranquiciaUseCase.actualizarNombreFranquicia(request)
                 .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
     }
 }
