@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "60235ffd-3e04-4131-9823-91dce0b1db57",
+		"name": "API-Franquicias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15671818"
+	},
+	"item": [
+		{
+			"name": "agregar franquicia",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "agregar sucursal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sucursal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sucursal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "agregar nuevo producto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":12,\r\n    \"nombre\":\"chocolate\",\r\n    \"cantidadStock\":100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sucursal/producto/4321",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sucursal",
+						"producto",
+						"4321"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar producto",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "modificar stock producto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigoProducto\":13,\r\n    \"codigoSucursal\":4321,\r\n    \"stock\":90\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sucursal/producto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sucursal",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener productos con mayor stock",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las sucursales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/sucursal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sucursal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las franquicias",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
