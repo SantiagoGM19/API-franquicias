@@ -1,6 +1,7 @@
 package com.franquicias.api.infrastructure.controladores;
 
 import com.franquicias.api.application.AgregarFranquiciaUseCase;
+import com.franquicias.api.domain.excepciones.FranquiciaExistenteError;
 import com.franquicias.api.domain.modelos.Franquicia;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class FranquiciaControlador {
     public Mono<ResponseEntity<Franquicia>> agregarFranquicia(@RequestBody Franquicia request){
         return agregarFranquiciaUseCase.agregarNuevaFranquicia(request)
                 .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK))
-                .onErrorResume(error -> Mono.just(ResponseEntity.internalServerError().build()));
+                .onErrorResume(FranquiciaExistenteError.class, error ->
+                        Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)));
     }
 }

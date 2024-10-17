@@ -1,5 +1,6 @@
 package com.franquicias.api.application;
 
+import com.franquicias.api.domain.excepciones.SucursalExistenteError;
 import com.franquicias.api.domain.modelos.Sucursal;
 import com.franquicias.api.domain.puertos.SucursalRepositoryPort;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ public class AgregarSucursalUseCase {
     private final SucursalRepositoryPort sucursalRepositoryPort;
 
     public Mono<Sucursal> agregarNuevaSucursalAFranquicia(Sucursal sucursal){
-        return sucursalRepositoryPort.agregarSucursal(sucursal);
+        return sucursalRepositoryPort.agregarSucursal(sucursal)
+                .switchIfEmpty(Mono.error(new SucursalExistenteError()));
     }
 }

@@ -1,5 +1,6 @@
 package com.franquicias.api.application;
 
+import com.franquicias.api.domain.excepciones.FranquiciaExistenteError;
 import com.franquicias.api.domain.modelos.Franquicia;
 import com.franquicias.api.domain.puertos.FranquiciaRepositoryPort;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,13 @@ public class AgregarFranquiciaUseCase {
     private final FranquiciaRepositoryPort franquiciaRepository;
 
     public Mono<Franquicia> agregarNuevaFranquicia(Franquicia franquicia){
-        return franquiciaRepository.agregarFranquicia(franquicia);
+        return franquiciaRepository.agregarFranquicia(franquicia)
+                .map(resultado -> {
+                    if(resultado.getCodigo() == null){
+                        throw new FranquiciaExistenteError();
+                    }
+                    return resultado;
+                });
     }
 
 }
