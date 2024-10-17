@@ -110,4 +110,10 @@ public class SucursalRepositoryAdapter implements SucursalRepositoryPort {
         return reactiveMongoTemplate.find(query, SucursalEntity.class)
                 .map(SucursalMapper::fromEntity);
     }
+
+    @Override
+    public Flux<Sucursal> obtenerTodasLasSucursales() {
+        return reactiveMongoTemplate.findAll(SucursalEntity.class)
+                .map(SucursalMapper::fromEntity);
+    }
 }

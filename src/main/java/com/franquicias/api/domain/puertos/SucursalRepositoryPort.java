@@ -16,4 +16,5 @@ public interface SucursalRepositoryPort {
     Mono<Long> eliminarProducto(EliminacionProductoData eliminacionProductoData);
     Mono<Long> modificarStockProducto(ModificacionStockProductoData modificacionStockProductoData);
     Flux<Sucursal> obtenerSucursalesPorCodgioFranquicia(Integer codigoFranquicia);
+    Flux<Sucursal> obtenerTodasLasSucursales();
 }

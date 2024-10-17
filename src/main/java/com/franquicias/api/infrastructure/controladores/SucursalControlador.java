@@ -22,6 +22,7 @@ public class SucursalControlador {
     private final EliminarProductoUseCase eliminarProductoUseCase;
     private final ModificarStockProductoUseCase modificarStockProductoUseCase;
     private final ObtenerProductosMayorStockUseCase obtenerProductosMayorStockUseCase;
+    private final ObtenerTodasLasSucursalesUseCase obtenerTodasLasSucursalesUseCase;
 
     @PostMapping
     public Mono<ResponseEntity<Sucursal>> agregarSucursal(@RequestBody Sucursal request){
@@ -55,6 +56,12 @@ public class SucursalControlador {
     @GetMapping("/producto/{codigoFranquicia}")
     public Mono<ResponseEntity<List<ProductoMayorStock>>> obtenerProductosMayorStock(@PathVariable Integer codigoFranquicia){
         return obtenerProductosMayorStockUseCase.obtenerProductosMayorStock(codigoFranquicia)
+                .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
+    }
+
+    @GetMapping
+    public Mono<ResponseEntity<List<Sucursal>>> obtenerTodasLasSucursales(){
+        return obtenerTodasLasSucursalesUseCase.obtenerTodasLasSucursales()
                 .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
     }
 }
