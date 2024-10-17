@@ -1,20 +1,16 @@
 package com.franquicias.api.infrastructure.controladores;
 
-import com.franquicias.api.application.AgregarProductoUseCase;
-import com.franquicias.api.application.AgregarSucursalUseCase;
-import com.franquicias.api.application.EliminarProductoUseCase;
-import com.franquicias.api.application.ModificarStockProductoUseCase;
+import com.franquicias.api.application.*;
 import com.franquicias.api.domain.excepciones.ProductoExistenteError;
 import com.franquicias.api.domain.excepciones.SucursalExistenteError;
-import com.franquicias.api.domain.modelos.EliminacionProductoData;
-import com.franquicias.api.domain.modelos.ModificacionStockProductoData;
-import com.franquicias.api.domain.modelos.Producto;
-import com.franquicias.api.domain.modelos.Sucursal;
+import com.franquicias.api.domain.modelos.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sucursal")
@@ -25,6 +21,7 @@ public class SucursalControlador {
     private final AgregarProductoUseCase agregarProductoUseCase;
     private final EliminarProductoUseCase eliminarProductoUseCase;
     private final ModificarStockProductoUseCase modificarStockProductoUseCase;
+    private final ObtenerProductosMayorStockUseCase obtenerProductosMayorStockUseCase;
 
     @PostMapping
     public Mono<ResponseEntity<Sucursal>> agregarSucursal(@RequestBody Sucursal request){
@@ -52,6 +49,12 @@ public class SucursalControlador {
     @PutMapping("/producto")
     public Mono<ResponseEntity<Long>> modificarStockProducto(@RequestBody ModificacionStockProductoData request){
         return modificarStockProductoUseCase.modificarStockProducto(request)
+                .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
+    }
+
+    @GetMapping("/producto/{codigoFranquicia}")
+    public Mono<ResponseEntity<List<ProductoMayorStock>>> obtenerProductosMayorStock(@PathVariable Integer codigoFranquicia){
+        return obtenerProductosMayorStockUseCase.obtenerProductosMayorStock(codigoFranquicia)
                 .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
     }
 }
