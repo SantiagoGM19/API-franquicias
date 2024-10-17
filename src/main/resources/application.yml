@@ -1,6 +1,6 @@
 spring:
   application:
-    name: api-franquisia
+    name: api-franquicia
   data:
     mongodb:
       uri: ${MONGODB_URI}
