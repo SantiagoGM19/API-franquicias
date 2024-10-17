@@ -14,5 +14,5 @@ public class FranquiciaEntity {
     private String _id;
     private Integer codigo;
     private String nombre;
-    private List<SucursalEntity> sucursales;
+    private List<Integer> codigosSucursales;
 }

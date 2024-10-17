@@ -13,6 +13,7 @@ public class SucursalEntity {
     @Id
     private String _id;
     private String nombre;
-    private String codigoFranquicia;
+    private Integer codigo;
+    private Integer codigoFranquicia;
     private List<Producto> productos;
 }

@@ -12,5 +12,5 @@ import java.util.List;
 public class Franquicia {
     private Integer codigo;
     private String nombre;
-    private List<Sucursal> sucursales;
+    private List<Integer> codigosSucursales;
 }
