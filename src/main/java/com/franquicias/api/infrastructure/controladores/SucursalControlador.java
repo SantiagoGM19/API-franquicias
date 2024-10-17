@@ -3,9 +3,11 @@ package com.franquicias.api.infrastructure.controladores;
 import com.franquicias.api.application.AgregarProductoUseCase;
 import com.franquicias.api.application.AgregarSucursalUseCase;
 import com.franquicias.api.application.EliminarProductoUseCase;
+import com.franquicias.api.application.ModificarStockProductoUseCase;
 import com.franquicias.api.domain.excepciones.ProductoExistenteError;
 import com.franquicias.api.domain.excepciones.SucursalExistenteError;
 import com.franquicias.api.domain.modelos.EliminacionProductoData;
+import com.franquicias.api.domain.modelos.ModificacionStockProductoData;
 import com.franquicias.api.domain.modelos.Producto;
 import com.franquicias.api.domain.modelos.Sucursal;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class SucursalControlador {
     private final AgregarSucursalUseCase agregarSucursalUseCase;
     private final AgregarProductoUseCase agregarProductoUseCase;
     private final EliminarProductoUseCase eliminarProductoUseCase;
+    private final ModificarStockProductoUseCase modificarStockProductoUseCase;
 
     @PostMapping
     public Mono<ResponseEntity<Sucursal>> agregarSucursal(@RequestBody Sucursal request){
@@ -43,6 +46,12 @@ public class SucursalControlador {
     @DeleteMapping("/producto")
     public Mono<ResponseEntity<Long>> eliminarProducto(@RequestBody EliminacionProductoData request){
         return eliminarProductoUseCase.eliminarProducto(request)
+                .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
+    }
+
+    @PutMapping("/producto")
+    public Mono<ResponseEntity<Long>> modificarStockProducto(@RequestBody ModificacionStockProductoData request){
+        return modificarStockProductoUseCase.modificarStockProducto(request)
                 .map(resultado -> new ResponseEntity<>(resultado, HttpStatus.OK));
     }
 }

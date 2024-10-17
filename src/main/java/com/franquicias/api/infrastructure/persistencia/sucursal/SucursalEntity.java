@@ -24,4 +24,14 @@ public class SucursalEntity {
                .toList();
        setProductos(nuevaLista);
     }
+
+    public void modificarStockProducto(Integer stock, Integer codigo) {
+        List<Producto> productoFiltrado = productos.stream()
+                .filter(producto -> Objects.equals(producto.getCodigo(), codigo))
+                .toList();
+        if(!productoFiltrado.isEmpty()){
+            Producto productoAModificar = productoFiltrado.get(0);
+            productoAModificar.setCantidadStock(stock);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.franquicias.api.infrastructure.persistencia.sucursal;
 
 import com.franquicias.api.domain.modelos.EliminacionProductoData;
+import com.franquicias.api.domain.modelos.ModificacionStockProductoData;
 import com.franquicias.api.domain.modelos.Producto;
 import com.franquicias.api.domain.modelos.Sucursal;
 import com.franquicias.api.domain.puertos.SucursalRepositoryPort;
@@ -74,13 +75,27 @@ public class SucursalRepositoryAdapter implements SucursalRepositoryPort {
     }
 
     @Override
-    public Mono<Long> eliminarProducto(EliminacionProductoData eliminacionProductoData) {
+    public Mono<Long> eliminarProducto(EliminacionProductoData data) {
         Query query = new Query();
         Update update = new Update();
-        query.addCriteria(Criteria.where("codigo").is(eliminacionProductoData.getCodigoSucursal()));
+        query.addCriteria(Criteria.where("codigo").is(data.getCodigoSucursal()));
         return reactiveMongoTemplate.findOne(query, SucursalEntity.class)
                 .flatMap(resultado -> {
-                    resultado.eliminarProducto(eliminacionProductoData.getCodigoProducto());
+                    resultado.eliminarProducto(data.getCodigoProducto());
+                    update.set("productos", resultado.getProductos());
+                    return reactiveMongoTemplate.updateFirst(query, update, SucursalEntity.class)
+                            .map(UpdateResult::getModifiedCount);
+                });
+    }
+
+    @Override
+    public Mono<Long> modificarStockProducto(ModificacionStockProductoData data){
+        Query query = new Query();
+        Update update = new Update();
+        query.addCriteria(Criteria.where("codigo").is(data.getCodigoSucursal()));
+        return reactiveMongoTemplate.findOne(query, SucursalEntity.class)
+                .flatMap(resultado -> {
+                    resultado.modificarStockProducto(data.getStock(), data.getCodigoProducto());
                     update.set("productos", resultado.getProductos());
                     return reactiveMongoTemplate.updateFirst(query, update, SucursalEntity.class)
                             .map(UpdateResult::getModifiedCount);
