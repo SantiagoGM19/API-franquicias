@@ -10,7 +10,27 @@
 			"name": "agregar franquicia",
 			"request": {
 				"method": "POST",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":12345,\r\n    \"nombre\":\"Franquicia1\",\r\n    \"codigosSucursales\":[]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/franquicia",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"franquicia"
+					]
+				}
 			},
 			"response": []
 		},
@@ -19,6 +39,15 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"sucursal2\",\r\n    \"codigo\":9876,\r\n    \"codigoFranquicia\":1234,\r\n    \"productos\":[]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:8080/sucursal",
 					"protocol": "http",
@@ -40,7 +69,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"codigo\":12,\r\n    \"nombre\":\"chocolate\",\r\n    \"cantidadStock\":100\r\n}",
+					"raw": "{\r\n    \"codigo\":11,\r\n    \"nombre\":\"producto5\",\r\n    \"cantidadStock\":20\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -48,7 +77,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/sucursal/producto/4321",
+					"raw": "http://localhost:8080/sucursal/producto/9876",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -57,7 +86,7 @@
 					"path": [
 						"sucursal",
 						"producto",
-						"4321"
+						"9876"
 					]
 				}
 			},
@@ -67,7 +96,28 @@
 			"name": "eliminar producto",
 			"request": {
 				"method": "DELETE",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigoProducto\":13,\r\n    \"codigoSucursal\":4321\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sucursal/producto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sucursal",
+						"producto"
+					]
+				}
 			},
 			"response": []
 		},
@@ -78,7 +128,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"codigoProducto\":13,\r\n    \"codigoSucursal\":4321,\r\n    \"stock\":90\r\n}",
+					"raw": "{\r\n    \"codigoProducto\":12,\r\n    \"codigoSucursal\":4321,\r\n    \"stock\":90\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -102,9 +152,34 @@
 		},
 		{
 			"name": "Obtener productos con mayor stock",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sucursal/producto/1234",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sucursal",
+						"producto",
+						"1234"
+					]
+				}
 			},
 			"response": []
 		},
@@ -114,12 +189,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/sucursal",
-					"protocol": "http",
+					"raw": "https://api-franquicias.onrender.com/sucursal",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"api-franquicias",
+						"onrender",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"sucursal"
 					]
@@ -131,7 +207,48 @@
 			"name": "Obtener todas las franquicias",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "https://api-franquicias.onrender.com/franquicia",
+					"protocol": "https",
+					"host": [
+						"api-franquicias",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"franquicia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar nombre franquicia",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigoFranquicia\":12345,\r\n    \"nuevoNombre\":\"Franquicia2400\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-franquicias.onrender.com/franquicia",
+					"protocol": "https",
+					"host": [
+						"api-franquicias",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"franquicia"
+					]
+				}
 			},
 			"response": []
 		}
