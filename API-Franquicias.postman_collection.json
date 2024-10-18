@@ -134,6 +134,14 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "Actualizar nombre franquicia",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
