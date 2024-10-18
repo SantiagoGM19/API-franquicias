@@ -17,9 +17,9 @@ Si se desea hacer uso de la aplicación en local solo se debe tener encuenta ten
 ### **Recuerde agregar la variable de entorno de la url de mongo para que el proyecto funcione correctamente**
 
 # Funcionalidades de la aplicación
-- Agregar una nueva franquicia
-- Agregar una nueva sucursal
-- Agregar un nuevo producto a una sucursal
+- Agregar una nueva franquicia, lanza http status 400 si la franquicia ya existe
+- Agregar una nueva sucursal, lanza http status 400 si la sucursal ya existe
+- Agregar un nuevo producto a una sucursal, lanza http status 400 si el producto ya existe en la sucursal
 - Eliminar un producto
 - Modificar el stock de un producto
 - Consultar los productos con mayor stock de cada sucursal para una franquicia específica
